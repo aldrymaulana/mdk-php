@@ -22,31 +22,25 @@
 			<div data-options="region:'south',split:true" style="height:50px;">FOOTER</div>
 			<div data-options="region:'west',split:true" title="Panel Menu" style="width:200px;">
 				<div class="easyui-accordion" data-options="fit:true,border:false">
-<<<<<<< .mine
 					<div title="MDK" style="padding:10px;">					
 						<ul id="menu-tree" class="easyui-tree" data-options="url:'json/menu-tree.json',animate:true,dnd:true"></ul>		
 					</div>					
 					<div title="Sistem" style="padding:10px">
 						<ul class="easyui-tree" data-options="url:'json/menu-sistem-tree.json',animate:true,dnd:true"></ul>
-=======
 					<div title="MDK" style="padding:10px;">					
 						<ul class="easyui-tree" data-options="url:'json/menu-tree.json',animate:true,dnd:true"></ul>		
 					</div>					
 					<div title="Sistem" style="padding:10px">
 						<ul class="easyui-tree" data-options="url:'json/menu-sistem-tree.json',animate:true,dnd:true"></ul>
->>>>>>> .r7
 					</div>
 				</div>
 			</div>
-<<<<<<< .mine
 			<div id="content" class="easyui-tabs" data-options="region:'center',title:'Dashboard',iconCls:'icon-ok'"></div>
-=======
 			<div data-options="region:'center',title:'Dashboard',iconCls:'icon-ok'">
 				<div class="easyui-tabs" data-options="fit:true,border:false,plain:true">
 					<div title="About" data-options="href:'js/jquery-easyui-1.3.2/demo/layout/_content.html'" style="padding:10px"></div>				
 				</div>
 			</div>
->>>>>>> .r7
 		</div>
 
 		<script>
