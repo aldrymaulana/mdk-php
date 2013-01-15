@@ -27,20 +27,10 @@
 					</div>					
 					<div title="Sistem" style="padding:10px">
 						<ul class="easyui-tree" data-options="url:'json/menu-sistem-tree.json',animate:true,dnd:true"></ul>
-					<div title="MDK" style="padding:10px;">					
-						<ul class="easyui-tree" data-options="url:'json/menu-tree.json',animate:true,dnd:true"></ul>		
-					</div>					
-					<div title="Sistem" style="padding:10px">
-						<ul class="easyui-tree" data-options="url:'json/menu-sistem-tree.json',animate:true,dnd:true"></ul>
 					</div>
 				</div>
 			</div>
 			<div id="content" class="easyui-tabs" data-options="region:'center',title:'Dashboard',iconCls:'icon-ok'"></div>
-			<div data-options="region:'center',title:'Dashboard',iconCls:'icon-ok'">
-				<div class="easyui-tabs" data-options="fit:true,border:false,plain:true">
-					<div title="About" data-options="href:'js/jquery-easyui-1.3.2/demo/layout/_content.html'" style="padding:10px"></div>				
-				</div>
-			</div>
 		</div>
 
 		<script>
@@ -49,7 +39,7 @@
 					onClick: function(node) {
 						switch (node.text) {
 							case "Keluarga" : {
-								addTab($("#content"), node.text, "keluarga.php");
+								addTab($("#content"), node.text, "keluarga-kb.php");
 							} break;
 							
 							case "Keluarga KB" : {
@@ -61,7 +51,7 @@
 							} break;
 
 							case "Tempat Pemeriksaan" : {
-								addTab($("#content"), node.text, "tempat-pemeriksaan.php");
+								addTab($("#content"), node.text, "keluarga-kb.php");
 							} break;
 						}
 					}
