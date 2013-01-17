@@ -13,6 +13,7 @@
 		<link rel="stylesheet" type="text/css" href="js/jquery-easyui-1.3.2/demo/demo.css">
 		<script type="text/javascript" src="js/jquery-easyui-1.3.2/jquery-1.8.0.min.js"></script>
 		<script type="text/javascript" src="js/jquery-easyui-1.3.2/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="js/jquery-easyui-datagridview/datagrid-scrollview.js"></script>
 		<script type="text/javascript" src="js/custom.js"></script>
 	</head>
 	<body>	
@@ -39,7 +40,7 @@
 					onClick: function(node) {
 						switch (node.text) {
 							case "Keluarga" : {
-								addTab($("#content"), node.text, "keluarga-kb.php");
+								addTab($("#content"), node.text, "keluarga.php");
 							} break;
 							
 							case "Keluarga KB" : {
