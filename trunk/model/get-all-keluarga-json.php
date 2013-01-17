@@ -1,19 +1,18 @@
 <?php
   require '../lib/conn.inc.php';  
 
-  define( 'TABLE_NAME', 'v_Keluarga' );
-
   $conn = new Conn();
+  $table = 'v_Keluarga';
   $conn->openMssqlConnection();
   
-  $sql = 'SELECT COUNT(*) AS total FROM ' . TABLE_NAME;
+  $sql = 'SELECT COUNT(*) AS total FROM ' . $table;
   $result = mssql_query( $sql );
   $total = mssql_fetch_assoc( $result );
 
   $page = isset( $_REQUEST[ 'page' ] ) ? intval( $_REQUEST[ 'page' ] ) : 1;
   $rows = isset( $_REQUEST[ 'rows' ] ) ? intval( $_REQUEST[ 'rows' ] ) : 10;
 
-  $sql = 'SELECT * FROM ' . TABLE_NAME . ' ORDER BY ID ASC OFFSET(' . $page . ') ROWS FETCH NEXT ' . $rows . ' ROWS ONLY';  
+  $sql = 'SELECT * FROM ' . $table . ' ORDER BY ID ASC OFFSET(' . $page . ') ROWS FETCH NEXT ' . $rows . ' ROWS ONLY';  
   $result = mssql_query( $sql );
   $data = array();
 
