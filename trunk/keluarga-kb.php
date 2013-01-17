@@ -204,7 +204,7 @@
 		</form>
 	</div>
 
-	<table id="tbl-keluarga" class="easyui-datagrid" title="Tabel Keluarga" data-options="rownumbers: true, singleSelect: true, url: 'model/get-all-keluarga-json.php', pagination: false, pageSize: 10" title="Load data" iconCls="icon-save">
+	<table id="tbl-keluarga" class="easyui-datagrid" title="Tabel Keluarga" data-options="rownumbers: true, singleSelect: true, url: 'model/get-all-keluarga-json.php', pagination: true" style="height:330px" title="Load data" iconCls="">
 		<thead>
 			<tr>
 				<th field="KeluargaId" width="80">ID</th>
