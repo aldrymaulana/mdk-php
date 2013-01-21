@@ -28,7 +28,22 @@
       mssql_free_result( $result );
 
       return $data;
-    }    
+    } 
+
+    public function getNamaBulanById( $id ) {
+      $sql = 'SELECT Bulan FROM ' . $this->table . ' WHERE BulanId=' . $id;
+      $result = mssql_query( $sql );
+      
+      if ( mssql_num_rows( $result ) > 0 ) {
+        while ( $val = mssql_fetch_assoc( $result ) ) {      
+          $namaBulan = $val[ 'Bulan' ];
+        }
+      }
+
+      mssql_free_result( $result );
+
+      return $bulan;
+    }   
   }  
   
 ?>
