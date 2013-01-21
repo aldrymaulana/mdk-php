@@ -1,18 +1,7 @@
 <div id="panel-keluarga" class="easyui-panel" title=" " style="padding: 10px">
 	<div id="panel-search" class="easyui-panel" title="Pencarian" data-options="collapsible: true">
 		<form name="" id="">
-			<table width="100%">
-				<tr>
-					<td align="right">Negara</td>
-					<td>:</td>
-					<td><input type="text" value="REPUBLIK INDONESIA" disabled /></td>
-					<td align="right">Provinsi</td>
-					<td>:</td>
-					<td><input type="text" value="JAWA BARAT" disabled /></td>
-					<td align="right">Kota</td>
-					<td>:</td>
-					<td><input type="text" value="CIMAHI" disabled /></td>
-				</tr>
+			<table width="100%">				
 				<tr>
 					<td align="right">Kecamatan</td>
 					<td>:</td>
@@ -90,7 +79,6 @@
 				<th data-options="field: 'NoKKI', width: 150">No. KKI</th>
 				<th data-options="field: 'KepalaKeluarga', width: 250">Nama KK</th>
 				<th data-options="field: 'NamaIstri', width: 250">Nama Istri</th>				
-				<th>Aksi</th>
 			</tr>
 		</thead>
 	</table>

@@ -9,15 +9,15 @@
   $result = mssql_query( $sql );
   $total = mssql_fetch_assoc( $result );
 
-  $page = isset( $_REQUEST[ 'page' ] ) ? intval( $_REQUEST[ 'page' ] ) : 1;
+  $page = isset( $_REQUEST[ 'page' ] ) ? intval( $_REQUEST[ 'page' ] ) : 0;
   $rows = isset( $_REQUEST[ 'rows' ] ) ? intval( $_REQUEST[ 'rows' ] ) : 10;
 
-  $sql = 'SELECT * FROM ' . $table . ' ORDER BY ID ASC OFFSET(' . $page . ') ROWS FETCH NEXT ' . $rows . ' ROWS ONLY';  
+  $sql = 'SELECT * FROM ' . $table . ' ORDER BY ID ASC OFFSET(' . ( $page - 1 ) * $rows . ') ROWS FETCH NEXT ' . $rows . ' ROWS ONLY';  
   $result = mssql_query( $sql );
   $data = array();
 
   if ( mssql_num_rows( $result ) > 0 ) {
-    while ( $val = mssql_fetch_assoc( $result ) ) {      
+    while ( $val = mssql_fetch_assoc( $result ) ) {
       $data[] = array(
           'KeluargaId' => $val[ 'ID' ],
           'NoKKI' => $val[ 'NoKKI' ],
