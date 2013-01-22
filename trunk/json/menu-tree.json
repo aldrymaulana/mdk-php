@@ -1,17 +1,17 @@
 [{
 	"id":1,
 	"text":"Master",
+	"state":"closed",
 	"children":[{
 		"id":11,
 		"text":"Keluarga"
-	},{
-		"id":12,
+	}]
+},{
+	"id":2,
+	"text":"Transaksi",
+	"state":"closed",
+	"children":[{
+		"id":21,
 		"text":"Keluarga KB"		
-	},{
-		"id":13,
-		"text":"Jenis Kontrasepsi"
-	},{
-		"id":14,
-		"text":"Tempat Pemeriksaan"
 	}]
 }]
