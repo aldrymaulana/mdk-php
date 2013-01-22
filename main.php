@@ -16,8 +16,7 @@
 		<link rel="stylesheet" type="text/css" href="js/jquery-easyui-1.3.2/demo/demo.css">
 		<script type="text/javascript" src="js/jquery-easyui-1.3.2/jquery-1.8.0.min.js"></script>
 		<script type="text/javascript" src="js/jquery-easyui-1.3.2/jquery.easyui.min.js"></script>
-		<script type="text/javascript" src="js/jquery-easyui-1.3.2/locale/easyui-lang-id.js"></script>
-		<script type="text/javascript" src="js/jquery-easyui-datagridview/datagrid-scrollview.js"></script>
+		<script type="text/javascript" src="js/jquery-easyui-1.3.2/locale/easyui-lang-id.js"></script>		
 		<script type="text/javascript" src="js/custom.js"></script>
 	</head>
 	<body>	
