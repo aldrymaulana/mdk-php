@@ -1,7 +1,10 @@
-<!-- author: kierjarat -->
-<!-- 
-	data-options => href, url
--->
+<?php
+  session_start();
+
+  require_once 'lib/custom.inc.php';
+
+  checkSession();
+?>
 
 <!DOCTYPE html>
 <html>
@@ -28,7 +31,7 @@
 						<ul id="menu-tree" class="easyui-tree" data-options="url:'json/menu-tree.json',animate:true,dnd:true"></ul>		
 					</div>					
 					<div title="Sistem" style="padding:10px">
-						<ul class="easyui-tree" data-options="url:'json/menu-sistem-tree.json',animate:true,dnd:true"></ul>
+						<ul id="menu-sistem-tree" class="easyui-tree" data-options="url:'json/menu-sistem-tree.json',animate:true,dnd:true"></ul>
 					</div>
 				</div>
 			</div>
@@ -46,14 +49,24 @@
 							
 							case "Keluarga KB" : {
 								addTab($("#content"), node.text, "keluarga-kb.php");
-							} break;
+							} break;							
+						}
+					}
+				});
 
-							case "Jenis Kontrasepsi" : {
-								addTab($("#content"), node.text, "jenis-kontrasepsi.php");
-							} break;
+				$("#menu-sistem-tree").tree({
+					onClick: function(node) {
+						switch (node.text) {
+							case "User" : {
+								addTab($("#content"), node.text, "user.php");
+							} break;							
 
-							case "Tempat Pemeriksaan" : {
-								addTab($("#content"), node.text, "keluarga-kb.php");
+							case "Logout" : {
+								$.messager.confirm("Konfirmasi", "Keluar dari aplikasi?", function(r) {
+									if (r) {
+										addTab($("#content"), node.text, "logout.php");
+									}
+								});								
 							} break;
 						}
 					}

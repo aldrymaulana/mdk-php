@@ -1,9 +1,9 @@
 <?php
-	require_once 'model/kecamatan-service.php';
-	require_once 'model/kelurahan-service.php';
-	require_once 'model/bulan-service.php';
-	require_once 'model/jenis-kontrasepsi-service.php';
-	require_once 'model/tempat-pelayanan-kb-service.php';
+	require_once 'model/kecamatan/kecamatan-service.php';
+	require_once 'model/kelurahan/kelurahan-service.php';
+	require_once 'model/bulan/bulan-service.php';
+	require_once 'model/jenis-kontrasepsi/jenis-kontrasepsi-service.php';
+	require_once 'model/tempat-pelayanan-kb/tempat-pelayanan-kb-service.php';
 
 	$kecamatan = new KecamatanService();
 	$kelurahan = new KelurahanService();
@@ -19,89 +19,88 @@
 ?>
 
 <div id="panel-keluarga-kb" class="easyui-panel" title=" " style="padding: 10px">
-	<div id="panel-search" class="easyui-panel" title="Pencarian" data-options="collapsible: true">
-		<form name="" id="">
-			<table width="100%">				
-				<tr>
-					<td align="right">Kecamatan</td>
-					<td>:</td>
-					<td>
-						<select id="Kecamatan1" name="Kecamatan" onchange="getKelurahanByKecamatanId1();">
-							<option value="0">--Pilih--</option>
-							<?php
-								if ( count( $kecamatanList ) > 0 ) {
-									for ( $i=0; $i < count( $kecamatanList ); $i++ ) {
-										echo '<option value="' . $kecamatanList[ $i ][ 'KecamatanId' ] . '">' . $kecamatanList[ $i ][ 'Nama' ] . '</option>';
-									}
+	<div id="panel-search" class="easyui-panel" title="Pencarian" data-options="collapsible: true">		
+		<table width="100%">				
+			<tr>
+				<td align="right">Kecamatan</td>
+				<td>:</td>
+				<td>
+					<select id="Kecamatan1" name="Kecamatan1" onchange="getKelurahanByKecamatanId1();">
+						<option value="0">--Pilih--</option>
+						<?php
+							if ( count( $kecamatanList ) > 0 ) {
+								for ( $i=0; $i < count( $kecamatanList ); $i++ ) {
+									echo '<option value="' . $kecamatanList[ $i ][ 'KecamatanId' ] . '">' . $kecamatanList[ $i ][ 'Nama' ] . '</option>';
 								}
-							?>
-						</select>
-					</td>
-					<td align="right">Kelurahan</td>
-					<td>:</td>
-					<td>
-						<select onchange="getRwByKelurahan1();" id="Kelurahan1" name="Kelurahan">
-							<option value="0">--Pilih--</option>							
-						</select>
-					</td>
-					<td align="right">RW / RT</td>
-					<td>:</td>
-					<td>
-						<select onchange="getRtByRw1();" id="Rw1" name="rw">
-							<option value="0">--Pilih--</option>
-						</select> / 
-						<select id="Rt1" name="rt">
-							<option value="0">--Pilih--</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td align="right">No. KKI</td>
-					<td>:</td>
-					<td><input type="text" name="NoKKI" id="NoKKI1" style="width: 150px;" /></td>
-					<td align="right">Nama Kepala Keluarga</td>
-					<td>:</td>
-					<td><input type="text" name="NamaKK" id="NamaKK1" style="width: 200px;" /></td>
-					<td align="right">Periode (Bulan/Tahun)</td>
-					<td>:</td>
-					<td>
-						<select id="Bulan1" name="Bulan">
-							<option value="0">--Pilih--</option>
-							<?php
-								if ( count( $bulanList ) > 0 ) {
-									for ( $i=0; $i < count( $bulanList ); $i++ ) {
-										echo '<option value="' . $bulanList[ $i ][ 'BulanId' ] . '">' . $bulanList[ $i ][ 'Bulan' ] . '</option>';
-									}
+							}
+						?>
+					</select>
+				</td>
+				<td align="right">Kelurahan</td>
+				<td>:</td>
+				<td>
+					<select onchange="getRwByKelurahan1();" id="Kelurahan1" name="Kelurahan1">
+						<option value="0">--Pilih--</option>							
+					</select>
+				</td>
+				<td align="right">RW / RT</td>
+				<td>:</td>
+				<td>
+					<select onchange="getRtByRw1();" id="Rw1" name="Rw1">
+						<option value="0">--Pilih--</option>
+					</select> / 
+					<select id="Rt1" name="Rt1">
+						<option value="0">--Pilih--</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">No. KKI</td>
+				<td>:</td>
+				<td><input type="text" name="NoKKI1" id="NoKKI1" style="width: 150px;" /></td>
+				<td align="right">Nama Kepala Keluarga</td>
+				<td>:</td>
+				<td><input type="text" name="NamaKK1" id="NamaKK1" style="width: 200px;" /></td>
+				<td align="right">Periode (Bulan/Tahun)</td>
+				<td>:</td>
+				<td>
+					<select id="Bulan1" name="Bulan1">
+						<option value="0">--Pilih--</option>
+						<?php
+							if ( count( $bulanList ) > 0 ) {
+								for ( $i=0; $i < count( $bulanList ); $i++ ) {
+									echo '<option value="' . $bulanList[ $i ][ 'BulanId' ] . '">' . $bulanList[ $i ][ 'Bulan' ] . '</option>';
 								}
-							?>
-						</select> /
-						<select id="Tahun1" name="Tahun">
-							<option value="0">--Pilih--</option>
-							<?php
-								for ( $i=2010; $i <= date( 'Y' ); $i++ ) {
-									echo '<option value="' . $i . '">' . $i . '</option>';
-								}
-							?>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="9" align="center"><button id="btn-search1">Cari</button></td>
-				</tr>
-			</table>
-		</form>
+							}
+						?>
+					</select> /
+					<select id="Tahun1" name="Tahun1">
+						<option value="0">--Pilih--</option>
+						<?php
+							for ( $i=2010; $i <= date( 'Y' ); $i++ ) {
+								echo '<option value="' . $i . '">' . $i . '</option>';
+							}
+						?>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="9" align="center"><button id="btn-search1">Cari</button></td>
+			</tr>
+		</table>
 	</div>
 
-	<table class="easyui-datagrid" title="Tabel Keluarga" id="tbl-keluarga-kb" data-options="singleSelect: true, collapsible: true, url: 'model/get-all-keluarga-kb-json.php', tools:'#tools', rownumbers: true, pagination: true" style="height: 360px; padding: 10px;">
+	<table class="easyui-datagrid" title="Tabel Keluarga" id="tbl-keluarga-kb" data-options="singleSelect: true, collapsible: true, url: 'model/keluarga-kb/get-all-keluarga-kb-json.php', tools:'#tools', rownumbers: true, pagination: true" style="height: 360px; padding: 10px;">
 		<thead>
 			<tr>
 				<th field="KeluargaId" width="80">ID</th>
 				<th field="NoKKI" width="150">No. KKI</th>
 				<th field="Bulan" width="80">Bulan</th>
 				<th field="Tahun" width="80">Tahun</th>
-				<th field="KepalaKeluarga" width="250">Nama KK</th>
-				<th field="JenisKontrasepsi" width="250">Jenis Kontrasepsi</th>
-				<th field="TempatPelayanan" width="250">Tempat Pelayanan KB</th>
+				<th field="KepalaKeluarga" width="200">Nama KK</th>
+				<th field="NamaIstri" width="200">Nama Istri</th>
+				<th field="JenisKontrasepsi" width="150">Jenis Kontrasepsi</th>
+				<th field="TempatPelayanan" width="150">Tempat Pelayanan KB</th>
 				<th hidden="true" field="JenisKontrasepsiId">Tempat Pelayanan KB</th>
 				<th hidden="true" field="TempatPelayananKBId">Tempat Pelayanan KB</th>
 			</tr>
@@ -277,7 +276,7 @@
 		</form>
 	</div>
 
-	<table id="tbl-keluarga" class="easyui-datagrid" title="Tabel Keluarga" data-options="rownumbers: true, singleSelect: true, url: 'model/get-all-keluarga-json.php', pagination: true, collapsible: true" style="height:330px" title="Load data" iconCls="">
+	<table id="tbl-keluarga" class="easyui-datagrid" title="Tabel Keluarga" data-options="rownumbers: true, singleSelect: true, url: 'model/keluarga/get-all-keluarga-json.php', pagination: true, collapsible: true" style="height:330px" title="Load data" iconCls="">
 		<thead>
 			<tr>
 				<th field="KeluargaId" width="80">ID</th>
@@ -299,12 +298,26 @@
 				$("#NamaIstri").val(rowData.NamaIstri);
 				$("#NoKKI").val(rowData.NoKKI);
 			}
-		});		
-	});
+		});
 
+		$("#btn-search1").unbind("click").bind("click", function() {
+			$("#tbl-keluarga-kb").datagrid("load", {
+				search: "true",
+				NoKKI: $("#NoKKI1").val(),
+				Kecamatan: $("#Kecamatan1").val(),
+				Kelurahan: $("#Kelurahan1").val(),
+				Rw: $("#Rw1").val(),
+				Rt: $("#Rt1").val(),
+				NamaKK: $("#NamaKK1").val(),
+				Bulan: $("#Bulan1").val(),
+				Tahun: $("#Tahun1").val()
+			});		
+		});
+	});
+	
 	function getNamaBulanById(id) {
 		$.ajax({
-			url: "model/get-nama-bulan-by-id-json.php",
+			url: "model/bulan/get-nama-bulan-by-id-json.php",
 			data: { BulanId: id },			
 			success: function(data) {
 				$("#NamaBulan").val(data.Bulan);
@@ -317,7 +330,7 @@
 
 	function getNamaKontrasepsiById(id) {
 		$.ajax({
-			url: "model/get-nama-kontrasepsi-by-id-json.php",
+			url: "model/jenis-kontrasepsi/get-nama-kontrasepsi-by-id-json.php",
 			data: { KontrasepId: id },			
 			success: function(data) {
 				$("#NamaKontrasepsi").val(data.Jenis);
@@ -330,7 +343,7 @@
 
 	function getNamaTempatPelayananById(id) {
 		$.ajax({
-			url: "model/get-nama-tempat-pelayanan-by-id-json.php",
+			url: "model/tempat-pelayanan-kb/get-nama-tempat-pelayanan-by-id-json.php",
 			data: { TempatPelayananId: id },			
 			success: function(data) {
 				$("#NamaTempatPelayanan").val(data.Nama);
@@ -351,7 +364,7 @@
 
 		if (confirm("Hapus data dengan No. KKI: " + row.NoKKI + "?")) {
 			$.ajax({
-				url: "model/delete-keluarga-kb.php",
+				url: "model/keluarga-kb/delete-keluarga-kb.php",
 				data: { Tahun: row.Tahun, BulanId: row.BulanId, KeluargaId: row.KeluargaId },
 				success: function(data) {
 					$("#tbl-keluarga-kb").datagrid("reload");
@@ -384,7 +397,7 @@
 			$("#NamaKk").val(row.KepalaKeluarga);
 			$("#NamaIstri").val(row.NamaIstri);
 			$("[name=JenisKontrasepsi]:radio").filter("[value='" + row.JenisKontrasepsiId + "']").attr("checked", true);
-			$("[name=TempatPelayanan]:radio").filter("[value='" + row.TempatPelayananKBId + "']").attr("checked", true);
+			$("[name=TempatPelayanan]:radio").filter("[value='" + row.TempatPelayananKBId + "']").attr("checked", true);			
 
 			$("#simpan").unbind("click").bind("click", function() {
 				// validasi, cek input
@@ -398,24 +411,12 @@
 
 				$.ajax({
 					type: "post",
-					url: "model/update-keluarga-kb.php",
+					url: "model/keluarga-kb/update-keluarga-kb.php",
 					data: parm,
 					success: function(data) {
 						if (data == "sukses") {
 							alert("Data berhasil diupdate!");
 							$("#tbl-keluarga-kb").datagrid("reload");
-							/*var selectedRow = $("#tbl-keluarga-kb").datagrid("getSelected");
-							var rowIndex = $("#tbl-keluarga-kb").datagrid("getRowIndex", selectedRow);
-
-							$("#tbl-keluarga-kb").datagrid("updateRow", {
-								index: rowIndex,
-								row: {
-									Bulan: $("#NamaBulan").val(),
-									Tahun: $("#Tahun").val(),
-									JenisKontrasepsi: $("#NamaKontrasepsi").val(),
-									TempatPelayanan: $("#NamaTempatPelayanan").val()
-								}
-							});*/
 						}
 						
 						$("#win-form").window("close");
@@ -455,7 +456,7 @@
 
 				$.ajax({
 					type: "post",
-					url: "model/save-keluarga-kb.php",
+					url: "model/keluarga-kb/save-keluarga-kb.php",
 					data: parm,
 					success: function(data) {
 						if (data == "sukses") {
@@ -475,7 +476,7 @@
 
 	function getKelurahanByKecamatanId1() {
 		$.ajax({
-			url: "model/get-kelurahan-by-kecamatan-json.php",
+			url: "model/kelurahan/get-kelurahan-by-kecamatan-json.php",
 			data: { id: $("#Kecamatan1").val() },
 			success: function(data) {
 				$("#Kelurahan1").empty();
@@ -494,7 +495,7 @@
 
 	function getRwByKelurahan1() {
 		$.ajax({
-			url: "model/get-rw-by-kelurahan-json.php",
+			url: "model/rw/get-rw-by-kelurahan-json.php",
 			data: { id: $("#Kelurahan1").val() },
 			success: function(data) {
 				$("#Rw1").empty();
@@ -513,7 +514,7 @@
 
 	function getRtByRw1() {
 		$.ajax({
-			url: "model/get-rt-by-rw-json.php",
+			url: "model/rt/get-rt-by-rw-json.php",
 			data: { id: $("#Rw1").val() },
 			success: function(data) {
 				$("#Rt1").empty();
@@ -532,7 +533,7 @@
 
 	function getKelurahanByKecamatanId2() {
 		$.ajax({
-			url: "model/get-kelurahan-by-kecamatan-json.php",
+			url: "model/kelurahan/get-kelurahan-by-kecamatan-json.php",
 			data: { id: $("#Kecamatan2").val() },
 			success: function(data) {
 				$("#Kelurahan2").empty();
@@ -551,7 +552,7 @@
 
 	function getRwByKelurahan2() {
 		$.ajax({
-			url: "model/get-rw-by-kelurahan-json.php",
+			url: "model/kelurahan/get-rw-by-kelurahan-json.php",
 			data: { id: $("#Kelurahan2").val() },
 			success: function(data) {
 				$("#Rw2").empty();
@@ -570,7 +571,7 @@
 
 	function getRtByRw2() {
 		$.ajax({
-			url: "model/get-rt-by-rw-json.php",
+			url: "model/rt/get-rt-by-rw-json.php",
 			data: { id: $("#Rw2").val() },
 			success: function(data) {
 				$("#Rt2").empty();
