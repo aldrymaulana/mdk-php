@@ -8,6 +8,8 @@
 	require_once 'model/tempat-pelayanan-kb/tempat-pelayanan-kb-service.php';
 	require_once 'model/rw/rw-service.php';
 	require_once 'model/rt/rt-service.php';
+	require_once 'model/alasan-tidak-kb/alasan-tidak-kb-service.php';
+	require_once 'model/tingkat-kesejahteraan/tingkat-kesejahteraan-service.php';
 
 	$kecamatan = new KecamatanService();
 	$kelurahan = new KelurahanService();
@@ -16,6 +18,8 @@
 	$tempatPelayananKb = new TempatPelayananKbService();
 	$rt = new RtService();
 	$rw = new RwService();
+	$alasanTidakKb = new AlasanTidakKbService();
+	$tingkatKesejahteraan = new TingkatKesejahteraanService();
 
 	if ( $_SESSION[ 'group_id' ] == 1 ) {
 		$kecamatanList = $kecamatan->getAllRecord();
@@ -29,6 +33,8 @@
 	$bulanList = $bulan->getAllRecord();
 	$jenisKontrasepsiList = $jenisKontrasepsi->getAllRecord();
 	$tempatPelayananKbList = $tempatPelayananKb->getAllRecord();
+	$alasanTidakKbList = $alasanTidakKb->getAllRecord();
+	$tingkatKesejahteraanList = $tingkatKesejahteraan->getAllRecord();
 ?>
 
 <div id="panel-keluarga-kb" class="easyui-panel" title=" " style="padding: 10px">
@@ -258,7 +264,18 @@
 			<tr>
 				<td width="30%" align="right">Alasan tidak ikut KB</td>
 				<td width="1%">:</td>
-				<td></td>			
+				<td>
+					<select id="Alasan" name="Alasan">
+						<option value="0">--Pilih--</option>
+						<?php
+							if ( count( $alasanTidakKbList ) > 0 ) {
+								for ( $i=0; $i < count( $alasanTidakKbList ); $i++ ) {
+									echo '<option value="' . $alasanTidakKbList[ $i ][ 'ID' ] . '">' . $alasanTidakKbList[ $i ][ 'Alasan' ] . '</option>';
+								}
+							}
+						?>
+					</select>
+				</td>			
 			</tr>
 		</table>
 	</div>
@@ -269,11 +286,11 @@
 				<td width="30%" align="right">Indikator KS</td>
 				<td width="1%">:</td>
 				<td>
-					<select onchange="<?php echo ( $_SESSION[ 'group_id' ] != 1 ) ? 'getRwByKelurahan1();' : ''; ?>" id="Kelurahan1" name="Kelurahan1">
+					<select id="Tingkat" name="Tingkat">
 						<?php							
-							if ( count( $kelurahanList ) > 0 ) {
-								for ( $i=0; $i < count( $kelurahanList ); $i++ ) {
-									echo '<option value="' . $kelurahanList[ $i ][ 'KelurahanId' ] . '">' . $kelurahanList[ $i ][ 'Nama' ] . '</option>';
+							if ( count( $tingkatKesejahteraanList ) > 0 ) {
+								for ( $i=0; $i < count( $tingkatKesejahteraanList ); $i++ ) {
+									echo '<option value="' . $tingkatKesejahteraanList[ $i ][ 'ID' ] . '">' . $tingkatKesejahteraanList[ $i ][ 'Tingkat' ] . '</option>';
 								}
 							}							
 						?>						
