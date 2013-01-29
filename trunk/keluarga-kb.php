@@ -158,92 +158,131 @@
 	<a href="javascript:void(0);" class="icon-remove" onclick="del();"></a>
 </div>
 
-<div id="win-form" class="easyui-window" title="Form Input" data-options="modal: true, closed: true" style="width: 500px; height: 300px; padding: 10px">
-	<table width="100%">		
-		<tr>
-			<td>No. KKI</td>
-			<td>:</td>
-			<td>
-				<input type="hidden" name="KeluargaId" id="KeluargaId" />
-				<input type="text" name="NoKKI" id="NoKKI" style="width: 150px;" disabled />
-				&nbsp;<a id="link-cari" href="javascript:void(0);" onclick="openSearchWindow();">Cari</a>
-			</td>
-		</tr>
-		<tr>
-			<td>Tahun</td>
-			<td>:</td>
-			<td>
-				<select id="Tahun" name="Tahun">
-					<option value="0">--Pilih--</option>
+<div id="win-form" class="easyui-window" title="Form Input" data-options="modal: true, closed: true" style="width: 735px; height: 500px; padding: 10px">
+	<div id="p" class="easyui-panel" title="Keluarga KB" style="width:700px;height:180px;padding:10px;">  
+		<table width="100%">		
+			<tr>
+				<td width="30%" align="right">No. KKI</td>
+				<td width="1%">:</td>
+				<td>
+					<input type="hidden" name="KeluargaId" id="KeluargaId" />
+					<input type="text" name="NoKKI" id="NoKKI" style="width: 150px;" disabled />
+					&nbsp;<a id="link-cari" href="javascript:void(0);" onclick="openSearchWindow();">Cari</a>
+				</td>
+			</tr>
+			<tr>
+				<td width="30%" align="right">Tahun</td>
+				<td width="1%">:</td>
+				<td>
+					<select id="Tahun" name="Tahun">
+						<option value="0">--Pilih--</option>
+						<?php
+							for ( $i=2010; $i <= date( 'Y' ); $i++ ) {
+								echo '<option value="' . $i . '">' . $i . '</option>';
+							}
+						?>
+					</select>
+				</td>			
+			</tr>
+			<tr>
+				<td width="30%" align="right">Bulan</td>
+				<td width="1%">:</td>
+				<td>
+					<input type="hidden" name="NamaBulan" id="NamaBulan" />
+					<select onchange="getNamaBulanById(this.value);" id="Bulan" name="Bulan">
+						<option value="0">--Pilih--</option>
+						<?php
+							if ( count( $bulanList ) > 0 ) {
+								for ( $i=0; $i < count( $bulanList ); $i++ ) {
+									echo '<option value="' . $bulanList[ $i ][ 'BulanId' ] . '">' . $bulanList[ $i ][ 'Bulan' ] . '</option>';
+								}
+							}
+						?>
+					</select>
+				</td>			
+			</tr>		
+			<tr>
+				<td width="30%" align="right">Nama KK</td>
+				<td width="1%">:</td>
+				<td><input type="text" name="NamaKk" id="NamaKk" style="width: 200px;" disabled /></td>			
+			</tr>
+			<tr>
+				<td width="30%" align="right">Nama Istri</td>
+				<td width="1%">:</td>
+				<td><input type="text" name="NamaIstri" id="NamaIstri" style="width: 200px;" disabled /></td>			
+			</tr>
+		</table>
+	</div>
+
+	<div id="p" class="easyui-panel" title="Kepesertaan KB" style="width:700px;height:160px;padding:10px;">  
+		<table width="100%">
+			<tr>
+				<td colspan="3">
+					<input type="checkbox" name="IkutKb" id="IkutKb" onclick="$('#NamaKontrasepsi').val('');" /> Ikut KB</td>				
+			</tr>
+			<tr>
+				<td width="30%" align="right">Jenis Kontrasepsi yang digunakan</td>
+				<td width="1%">:</td>
+				<td>
+					<input type="hidden" type="NamaKontrasepsi" id="NamaKontrasepsi" />
+					<input type="radio" name="JenisKontrasepsi" id="JenisKontrasepsi" onclick="$('#NamaKontrasepsi').val('');" value="0" checked />Kosong
 					<?php
-						for ( $i=2010; $i <= date( 'Y' ); $i++ ) {
-							echo '<option value="' . $i . '">' . $i . '</option>';
-						}
-					?>
-				</select>
-			</td>			
-		</tr>
-		<tr>
-			<td>Bulan</td>
-			<td>:</td>
-			<td>
-				<input type="hidden" name="NamaBulan" id="NamaBulan" />
-				<select onchange="getNamaBulanById(this.value);" id="Bulan" name="Bulan">
-					<option value="0">--Pilih--</option>
-					<?php
-						if ( count( $bulanList ) > 0 ) {
-							for ( $i=0; $i < count( $bulanList ); $i++ ) {
-								echo '<option value="' . $bulanList[ $i ][ 'BulanId' ] . '">' . $bulanList[ $i ][ 'Bulan' ] . '</option>';
+						if ( count( $jenisKontrasepsiList ) > 0 ) {
+							for ( $i=0; $i < count( $jenisKontrasepsiList ); $i++ ) {
+								echo '<input type="radio" onclick="getNamaKontrasepsiById(this.value);" id="JenisKontrasepsi" name="JenisKontrasepsi" value="' . $jenisKontrasepsiList[ $i ][ 'JenisKontrasepId' ] . '" />' . $jenisKontrasepsiList[ $i ][ 'Jenis' ];
 							}
 						}
 					?>
-				</select>
-			</td>			
-		</tr>		
-		<tr>
-			<td>Nama KK</td>
-			<td>:</td>
-			<td><input type="text" name="NamaKk" id="NamaKk" style="width: 200px;" disabled /></td>			
-		</tr>
-		<tr>
-			<td>Nama Istri</td>
-			<td>:</td>
-			<td><input type="text" name="NamaIstri" id="NamaIstri" style="width: 200px;" disabled /></td>			
-		</tr>
-		<tr>
-			<td>Jenis Kontrasepsi</td>
-			<td>:</td>
-			<td>
-				<input type="hidden" type="NamaKontrasepsi" id="NamaKontrasepsi" />
-				<input type="radio" name="JenisKontrasepsi" id="JenisKontrasepsi" onclick="$('#NamaKontrasepsi').val('');" value="0" checked />Kosong
-				<?php
-					if ( count( $jenisKontrasepsiList ) > 0 ) {
-						for ( $i=0; $i < count( $jenisKontrasepsiList ); $i++ ) {
-							echo '<input type="radio" onclick="getNamaKontrasepsiById(this.value);" id="JenisKontrasepsi" name="JenisKontrasepsi" value="' . $jenisKontrasepsiList[ $i ][ 'JenisKontrasepId' ] . '" />' . $jenisKontrasepsiList[ $i ][ 'Jenis' ];
+				</td>			
+			</tr>
+			<tr>
+				<td width="30%" align="right">Tgl. menggunakan KB</td>
+				<td width="1%">:</td>
+				<td><input type="text" id="" name="" class="easyui-datebox" /></td>			
+			</tr>
+			<tr>
+				<td width="30%" align="right">Tempat Pelayanan</td>
+				<td width="1%">:</td>
+				<td>
+					<input type="hidden" type="NamaTempatPelayanan" id="NamaTempatPelayanan" />
+					<input type="radio" name="TempatPelayanan" id="TempatPelayanan" onclick="$('#NamaTempatPelayanan').val('');" value="0" checked />Kosong
+					<?php
+						if ( count( $tempatPelayananKbList ) > 0 ) {
+							for ( $i=0; $i < count( $tempatPelayananKbList ); $i++ ) {
+								echo '<input type="radio" onclick="getNamaTempatPelayananById(this.value);" id="TempatPelayanan" name="TempatPelayanan" value="' . $tempatPelayananKbList[ $i ][ 'TempatPelayananKBId' ] . '" />' . $tempatPelayananKbList[ $i ][ 'Nama' ];
+							}
 						}
-					}
-				?>
-			</td>			
-		</tr>
-		<tr>
-			<td>Tempat Pelayanan</td>
-			<td>:</td>
-			<td>
-				<input type="hidden" type="NamaTempatPelayanan" id="NamaTempatPelayanan" />
-				<input type="radio" name="TempatPelayanan" id="TempatPelayanan" onclick="$('#NamaTempatPelayanan').val('');" value="0" checked />Kosong
-				<?php
-					if ( count( $tempatPelayananKbList ) > 0 ) {
-						for ( $i=0; $i < count( $tempatPelayananKbList ); $i++ ) {
-							echo '<input type="radio" onclick="getNamaTempatPelayananById(this.value);" id="TempatPelayanan" name="TempatPelayanan" value="' . $tempatPelayananKbList[ $i ][ 'TempatPelayananKBId' ] . '" />' . $tempatPelayananKbList[ $i ][ 'Nama' ];
-						}
-					}
-				?>
-			</td>			
-		</tr>
-		<tr>
-			<td colspan="3" align="center"><button id="simpan">Simpan</button></td>			
-		</tr>
-	</table>
+					?>
+				</td>			
+			</tr>
+			<tr>
+				<td width="30%" align="right">Alasan tidak ikut KB</td>
+				<td width="1%">:</td>
+				<td></td>			
+			</tr>
+		</table>
+	</div>
+
+	<div id="p" class="easyui-panel" title="Indikator KS" style="width:700px;height:70px;padding:10px;">  
+		<table width="100%">
+			<tr>
+				<td width="30%" align="right">Indikator KS</td>
+				<td width="1%">:</td>
+				<td>
+					<select onchange="<?php echo ( $_SESSION[ 'group_id' ] != 1 ) ? 'getRwByKelurahan1();' : ''; ?>" id="Kelurahan1" name="Kelurahan1">
+						<?php							
+							if ( count( $kelurahanList ) > 0 ) {
+								for ( $i=0; $i < count( $kelurahanList ); $i++ ) {
+									echo '<option value="' . $kelurahanList[ $i ][ 'KelurahanId' ] . '">' . $kelurahanList[ $i ][ 'Nama' ] . '</option>';
+								}
+							}							
+						?>						
+					</select>
+				</td>
+			</tr>			
+		</table>
+	</div><br />
+	<center><button id="simpan">Simpan</button></center>
 </div>
 
 <div id="win-search" class="easyui-window" title="Pencarian Data Keluarga" data-options="modal: true, closed: true" style="height: 520px; padding: 5px">
