@@ -1,0 +1,26 @@
+create folder trunk
+--This line, and those below, will be ignored--
+
+M    json/menu-tree.json
+M    main.php
+M    keluarga-kb.php
+M    js/custom.js
+M    dashboard.php
+M    keluarga.php
+M    svn-commit.2.tmp
+M    svn-commit.tmp
+M    index.php
+M    model/alasan-tidak-kb/alasan-tidak-kb-service.php
+M    model/keluarga-kb/get-all-keluarga-kb-json.php
+M    model/keluarga-kb/save-keluarga-kb.php
+M    model/keluarga-kb/update-keluarga-kb.php
+M    model/tingkat-kesejahteraan/tingkat-kesejahteraan-service.php
+M    model/login/check-login.php
+M    model/jenis-kontrasepsi/get-nama-kontrasepsi-by-id-json.php
+M    model/jenis-kontrasepsi/jenis-kontrasepsi-service.php
+M    chart/jml-mdk-per-kelurahan.php
+M    chart/jml-mdk-per-kecamatan.php
+A    trunk
+M    user.php
+M    lib/custom.inc.php
+M    lib/path.inc.php
