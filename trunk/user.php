@@ -7,7 +7,7 @@
 	$groupList = $group->getAllRecord();
 ?>
 
-<div id="panel-user" class="easyui-panel" title=" " style="padding: 10px;">
+<div id="panel-user" class="easyui-panel" title=" " style="padding: 5px;">
 	<div id="panel-search" class="easyui-panel" title="Pencarian" data-options="collapsible: true">		
 		<table align="center" width="25%">				
 			<tr>
@@ -19,7 +19,7 @@
 		</table>
 	</div>
 
-	<table class="easyui-datagrid" title="Tabel User" id="tbl-user" data-options="singleSelect: true, collapsible: true, url: 'model/user/get-all-user-json.php', rownumbers: true, pagination: true, tools:'#tools'" style="height: 360px; padding: 10px;" iconCls="" >
+	<table class="easyui-datagrid" title="Tabel User" id="tbl-user" data-options="singleSelect: true, collapsible: true, url: 'model/user/get-all-user-json.php', rownumbers: true, pagination: true, tools:'#tools'" style="height: 370px; padding: 10px;" iconCls="" >
 		<thead>
 			<tr>
 				<th data-options="field: 'UserId', width: 80">User ID</th>

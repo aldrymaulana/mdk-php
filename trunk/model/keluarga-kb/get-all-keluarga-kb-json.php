@@ -1,5 +1,6 @@
 <?php
   require '../../lib/conn.inc.php';    
+  require '../../lib/custom.inc.php';
 
   $conn = new Conn();
   $table = 'v_KeluargaKB';
@@ -48,7 +49,7 @@
     $where .= ' AND RTID=' . $rt;
   }
 
-  if ( $_REQUEST[ 'search' ] || $_REQUEST[ 'Kecamatan' ] || $_REQUEST[ 'Kelurahan' ] ) {
+  if ( $_REQUEST[ 'search' ] || $_REQUEST[ 'Kecamatan' ] || $_REQUEST[ 'Kelurahan' ] || $noKKI ) {
     $sql = 'SELECT COUNT(*) AS total FROM ' . $table . ' WHERE ' . $where;
   } else {
     $sql = 'SELECT COUNT(*) AS total FROM ' . $table;
@@ -60,10 +61,10 @@
   $page = isset( $_REQUEST[ 'page' ] ) ? intval( $_REQUEST[ 'page' ] ) : 0;
   $rows = isset( $_REQUEST[ 'rows' ] ) ? intval( $_REQUEST[ 'rows' ] ) : 10;
 
-  if ( $_REQUEST[ 'search' ] || $_REQUEST[ 'Kecamatan' ] || $_REQUEST[ 'Kelurahan' ]  ) {
-    $sql = 'SELECT * FROM ' . $table . ' WHERE ' . $where . ' ORDER BY KeluargaId ASC OFFSET(' . ( $page - 1 ) * $rows . ') ROWS FETCH NEXT ' . $rows . ' ROWS ONLY';
+  if ( $_REQUEST[ 'search' ] || $_REQUEST[ 'Kecamatan' ] || $_REQUEST[ 'Kelurahan' ] || $noKKI  ) {
+    $sql = 'SELECT * FROM ' . $table . ' WHERE ' . $where . ' ORDER BY BulanId ASC OFFSET(' . ( $page - 1 ) * $rows . ') ROWS FETCH NEXT ' . $rows . ' ROWS ONLY';
   } else {
-    $sql = 'SELECT * FROM ' . $table . ' ORDER BY KeluargaId ASC OFFSET(' . ( $page - 1 ) * $rows . ') ROWS FETCH NEXT ' . $rows . ' ROWS ONLY';
+    $sql = 'SELECT * FROM ' . $table . ' ORDER BY BulanId ASC OFFSET(' . ( $page - 1 ) * $rows . ') ROWS FETCH NEXT ' . $rows . ' ROWS ONLY';
   }
 
   $result = mssql_query( $sql );
@@ -82,7 +83,10 @@
           'Bulan' => $val[ 'Bulan' ],
           'NoKKI' => $val[ 'NoKKI' ],
           'JenisKontrasepsi' => $val[ 'JenisKontrasepsi' ],
-          'TempatPelayanan' => $val[ 'TempatPelayanan' ]
+          'TempatPelayanan' => $val[ 'TempatPelayanan' ],
+          'AlasanTidakKBId' => $val[ 'AlasanTidakKBId' ],
+          'TingkatKesejahteraanId' => $val[ 'TingkatKesejahteraanId' ],
+          'TglKB' => parseDateTimeFormat( $val[ 'TglKB' ], ' ' ),
       );
     }
   }

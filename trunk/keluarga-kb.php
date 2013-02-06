@@ -37,279 +37,14 @@
 	$tingkatKesejahteraanList = $tingkatKesejahteraan->getAllRecord();
 ?>
 
-<div id="panel-keluarga-kb" class="easyui-panel" title=" " style="padding: 10px">
-	<div id="panel-search" class="easyui-panel" title="Pencarian" data-options="collapsible: true">		
-		<table width="100%">				
-			<tr>
-				<td align="right">Kecamatan</td>
-				<td>:</td>
-				<td>
-					<select id="Kecamatan1" name="Kecamatan1" onchange="<?php echo ( $_SESSION[ 'group_id' ] != 1 ) ? 'getKelurahanByKecamatanId1();' : ''; ?>">
-						<?php
-							if ( $_SESSION[ 'group_id' ] != 1 ) {
-								if ( count( $kecamatanList ) > 0 ) {
-									for ( $i=0; $i < count( $kecamatanList ); $i++ ) {
-										echo '<option value="' . $kecamatanList[ $i ][ 'KecamatanId' ] . '">' . $kecamatanList[ $i ][ 'Nama' ] . '</option>';
-									}
-								}
-							} else {
-						?>
-						<option value="0">--Pilih--</option>
-						<?php
-								if ( count( $kecamatanList ) > 0 ) {
-									for ( $i=0; $i < count( $kecamatanList ); $i++ ) {
-										echo '<option value="' . $kecamatanList[ $i ][ 'KecamatanId' ] . '">' . $kecamatanList[ $i ][ 'Nama' ] . '</option>';
-									}
-								}
-							}
-						?>
-					</select>					
-				</td>
-				<td align="right">Kelurahan</td>
-				<td>:</td>
-				<td>
-					<select onchange="<?php echo ( $_SESSION[ 'group_id' ] != 1 ) ? 'getRwByKelurahan1();' : ''; ?>" id="Kelurahan1" name="Kelurahan1">
-						<?php
-							if ( $_SESSION[ 'group_id' ] != 1 ) {
-								if ( count( $kelurahanList ) > 0 ) {
-									for ( $i=0; $i < count( $kelurahanList ); $i++ ) {
-										echo '<option value="' . $kelurahanList[ $i ][ 'KelurahanId' ] . '">' . $kelurahanList[ $i ][ 'Nama' ] . '</option>';
-									}
-								}
-							} else {
-						?>
-						<option value="0">--Pilih--</option>
-						<?php
-							}
-						?>						
-					</select>
-				</td>
-				<td align="right">RW / RT</td>
-				<td>:</td>
-				<td>
-					<select onchange="getRtByRw1();" id="Rw1" name="Rw1">
-						<option value="0">--Pilih--</option>
-						<?php
-							if ( $_SESSION[ 'group_id' ] != 1 ) {
-								if ( count( $rwList ) > 0 ) {
-									for ( $i=0; $i < count( $rwList ); $i++ ) {
-										echo '<option value="' . $rwList[ $i ][ 'RWId' ] . '">' . $rwList[ $i ][ 'Nama' ] . '</option>';
-									}
-								}
-							}
-						?>
-					</select> / 
-					<select id="Rt1" name="Rt1">
-						<option value="0">--Pilih--</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td align="right">No. KKI</td>
-				<td>:</td>
-				<td><input type="text" name="NoKKI1" id="NoKKI1" style="width: 150px;" /></td>
-				<td align="right">Nama Kepala Keluarga</td>
-				<td>:</td>
-				<td><input type="text" name="NamaKK1" id="NamaKK1" style="width: 200px;" /></td>
-				<td align="right">Periode (Bulan/Tahun)</td>
-				<td>:</td>
-				<td>
-					<select id="Bulan1" name="Bulan1">
-						<option value="0">--Pilih--</option>
-						<?php
-							if ( count( $bulanList ) > 0 ) {
-								for ( $i=0; $i < count( $bulanList ); $i++ ) {
-									echo '<option value="' . $bulanList[ $i ][ 'BulanId' ] . '">' . $bulanList[ $i ][ 'Bulan' ] . '</option>';
-								}
-							}
-						?>
-					</select> /
-					<select id="Tahun1" name="Tahun1">
-						<option value="0">--Pilih--</option>
-						<?php
-							for ( $i=2010; $i <= date( 'Y' ); $i++ ) {
-								echo '<option value="' . $i . '">' . $i . '</option>';
-							}
-						?>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="9" align="center"><button id="btn-search1">Cari</button></td>
-			</tr>
-		</table>
-	</div>
-
-	<table class="easyui-datagrid" title="Tabel Keluarga" id="tbl-keluarga-kb" data-options="singleSelect: true, collapsible: true, tools:'#tools', rownumbers: true, pagination: true" style="height: 360px; padding: 10px;">
-		<thead>
-			<tr>
-				<th field="KeluargaId" width="80">ID</th>
-				<th field="NoKKI" width="150">No. KKI</th>
-				<th field="Bulan" width="80">Bulan</th>
-				<th field="Tahun" width="80">Tahun</th>
-				<th field="KepalaKeluarga" width="200">Nama KK</th>
-				<th field="NamaIstri" width="200">Nama Istri</th>
-				<th field="JenisKontrasepsi" width="150">Jenis Kontrasepsi</th>
-				<th field="TempatPelayanan" width="150">Tempat Pelayanan KB</th>
-				<th hidden="true" field="JenisKontrasepsiId">Tempat Pelayanan KB</th>
-				<th hidden="true" field="TempatPelayananKBId">Tempat Pelayanan KB</th>
-			</tr>
-		</thead>
-	</table>	
-</div>
-
-<div id="tools">
-	<a href="javascript:void(0);" class="icon-add" onclick="crud('insert');"></a>
-	<a href="javascript:void(0);" class="icon-edit" onclick="crud('update');"></a>
-	<a href="javascript:void(0);" class="icon-remove" onclick="del();"></a>
-</div>
-
-<div id="win-form" class="easyui-window" title="Form Input" data-options="modal: true, closed: true" style="width: 735px; height: 500px; padding: 10px">
-	<div id="p" class="easyui-panel" title="Keluarga KB" style="width:700px;height:180px;padding:10px;">  
-		<table width="100%">		
-			<tr>
-				<td width="30%" align="right">No. KKI</td>
-				<td width="1%">:</td>
-				<td>
-					<input type="hidden" name="KeluargaId" id="KeluargaId" />
-					<input type="text" name="NoKKI" id="NoKKI" style="width: 150px;" disabled />
-					&nbsp;<a id="link-cari" href="javascript:void(0);" onclick="openSearchWindow();">Cari</a>
-				</td>
-			</tr>
-			<tr>
-				<td width="30%" align="right">Tahun</td>
-				<td width="1%">:</td>
-				<td>
-					<select id="Tahun" name="Tahun">
-						<option value="0">--Pilih--</option>
-						<?php
-							for ( $i=2010; $i <= date( 'Y' ); $i++ ) {
-								echo '<option value="' . $i . '">' . $i . '</option>';
-							}
-						?>
-					</select>
-				</td>			
-			</tr>
-			<tr>
-				<td width="30%" align="right">Bulan</td>
-				<td width="1%">:</td>
-				<td>
-					<input type="hidden" name="NamaBulan" id="NamaBulan" />
-					<select onchange="getNamaBulanById(this.value);" id="Bulan" name="Bulan">
-						<option value="0">--Pilih--</option>
-						<?php
-							if ( count( $bulanList ) > 0 ) {
-								for ( $i=0; $i < count( $bulanList ); $i++ ) {
-									echo '<option value="' . $bulanList[ $i ][ 'BulanId' ] . '">' . $bulanList[ $i ][ 'Bulan' ] . '</option>';
-								}
-							}
-						?>
-					</select>
-				</td>			
-			</tr>		
-			<tr>
-				<td width="30%" align="right">Nama KK</td>
-				<td width="1%">:</td>
-				<td><input type="text" name="NamaKk" id="NamaKk" style="width: 200px;" disabled /></td>			
-			</tr>
-			<tr>
-				<td width="30%" align="right">Nama Istri</td>
-				<td width="1%">:</td>
-				<td><input type="text" name="NamaIstri" id="NamaIstri" style="width: 200px;" disabled /></td>			
-			</tr>
-		</table>
-	</div>
-
-	<div id="p" class="easyui-panel" title="Kepesertaan KB" style="width:700px;height:160px;padding:10px;">  
-		<table width="100%">
-			<tr>
-				<td colspan="3">
-					<input type="checkbox" name="IkutKb" id="IkutKb" onclick="$('#NamaKontrasepsi').val('');" /> Ikut KB</td>				
-			</tr>
-			<tr>
-				<td width="30%" align="right">Jenis Kontrasepsi yang digunakan</td>
-				<td width="1%">:</td>
-				<td>
-					<input type="hidden" type="NamaKontrasepsi" id="NamaKontrasepsi" />
-					<input type="radio" name="JenisKontrasepsi" id="JenisKontrasepsi" onclick="$('#NamaKontrasepsi').val('');" value="0" checked />Kosong
-					<?php
-						if ( count( $jenisKontrasepsiList ) > 0 ) {
-							for ( $i=0; $i < count( $jenisKontrasepsiList ); $i++ ) {
-								echo '<input type="radio" onclick="getNamaKontrasepsiById(this.value);" id="JenisKontrasepsi" name="JenisKontrasepsi" value="' . $jenisKontrasepsiList[ $i ][ 'JenisKontrasepId' ] . '" />' . $jenisKontrasepsiList[ $i ][ 'Jenis' ];
-							}
-						}
-					?>
-				</td>			
-			</tr>
-			<tr>
-				<td width="30%" align="right">Tgl. menggunakan KB</td>
-				<td width="1%">:</td>
-				<td><input type="text" id="" name="" class="easyui-datebox" /></td>			
-			</tr>
-			<tr>
-				<td width="30%" align="right">Tempat Pelayanan</td>
-				<td width="1%">:</td>
-				<td>
-					<input type="hidden" type="NamaTempatPelayanan" id="NamaTempatPelayanan" />
-					<input type="radio" name="TempatPelayanan" id="TempatPelayanan" onclick="$('#NamaTempatPelayanan').val('');" value="0" checked />Kosong
-					<?php
-						if ( count( $tempatPelayananKbList ) > 0 ) {
-							for ( $i=0; $i < count( $tempatPelayananKbList ); $i++ ) {
-								echo '<input type="radio" onclick="getNamaTempatPelayananById(this.value);" id="TempatPelayanan" name="TempatPelayanan" value="' . $tempatPelayananKbList[ $i ][ 'TempatPelayananKBId' ] . '" />' . $tempatPelayananKbList[ $i ][ 'Nama' ];
-							}
-						}
-					?>
-				</td>			
-			</tr>
-			<tr>
-				<td width="30%" align="right">Alasan tidak ikut KB</td>
-				<td width="1%">:</td>
-				<td>
-					<select id="Alasan" name="Alasan">
-						<option value="0">--Pilih--</option>
-						<?php
-							if ( count( $alasanTidakKbList ) > 0 ) {
-								for ( $i=0; $i < count( $alasanTidakKbList ); $i++ ) {
-									echo '<option value="' . $alasanTidakKbList[ $i ][ 'ID' ] . '">' . $alasanTidakKbList[ $i ][ 'Alasan' ] . '</option>';
-								}
-							}
-						?>
-					</select>
-				</td>			
-			</tr>
-		</table>
-	</div>
-
-	<div id="p" class="easyui-panel" title="Indikator KS" style="width:700px;height:70px;padding:10px;">  
-		<table width="100%">
-			<tr>
-				<td width="30%" align="right">Indikator KS</td>
-				<td width="1%">:</td>
-				<td>
-					<select id="Tingkat" name="Tingkat">
-						<?php							
-							if ( count( $tingkatKesejahteraanList ) > 0 ) {
-								for ( $i=0; $i < count( $tingkatKesejahteraanList ); $i++ ) {
-									echo '<option value="' . $tingkatKesejahteraanList[ $i ][ 'ID' ] . '">' . $tingkatKesejahteraanList[ $i ][ 'Tingkat' ] . '</option>';
-								}
-							}							
-						?>						
-					</select>
-				</td>
-			</tr>			
-		</table>
-	</div><br />
-	<center><button id="simpan">Simpan</button></center>
-</div>
-
-<div id="win-search" class="easyui-window" title="Pencarian Data Keluarga" data-options="modal: true, closed: true" style="height: 520px; padding: 5px">
+<div id="panel-keluarga-kb" class="easyui-panel" title=" " style="padding: 5px">
 	<div id="panel-search" class="easyui-panel" title="Pencarian" data-options="collapsible: true" style="">		
 		<table width="100%">				
 			<tr>
 				<td align="right">Kecamatan</td>
 				<td>:</td>
 				<td>
-					<select id="Kecamatan2" name="Kecamatan" onchange="<?php echo ( $_SESSION[ 'group_id' ] != 1 ) ? 'getKelurahanByKecamatanId2();' : ''; ?>">
+					<select id="Kecamatan2" name="Kecamatan" onchange="getKelurahanByKecamatanId2();">
 						<?php
 							if ( $_SESSION[ 'group_id' ] != 1 ) {
 								if ( count( $kecamatanList ) > 0 ) {
@@ -333,7 +68,7 @@
 				<td align="right">Kelurahan</td>
 				<td>:</td>
 				<td>
-					<select onchange="<?php echo ( $_SESSION[ 'group_id' ] != 1 ) ? 'getRwByKelurahan2();' : ''; ?>" id="Kelurahan2" name="Kelurahan">
+					<select onchange="getRwByKelurahan2();" id="Kelurahan2" name="Kelurahan">
 						<?php
 							if ( $_SESSION[ 'group_id' ] != 1 ) {
 								if ( count( $kelurahanList ) > 0 ) {
@@ -384,27 +119,212 @@
 		</table>
 	</div>
 
-	<table id="tbl-keluarga" class="easyui-datagrid" title="Tabel Keluarga" data-options="rownumbers: true, singleSelect: true, pagination: true, collapsible: true" style="height:330px" title="Load data" iconCls="">
+	<table id="tbl-keluarga" class="easyui-datagrid" title="Tabel Keluarga" data-options="rownumbers: true, singleSelect: true, pagination: true, collapsible: true, toolbar: toolbar" style="height:320px" title="Load data" iconCls="">
 		<thead>
 			<tr>
-				<th field="KeluargaId" width="80">ID</th>
-				<th field="NoKKI" width="150">No. KKI</th>
-				<th field="KepalaKeluarga" width="250">Nama KK</th>
-				<th field="NamaIstri" width="250">Nama Istri</th>				
+				<th data-options="field: 'KeluargaId', width: 80">ID</th>
+				<th data-options="field: 'NoKKI', width: 150">No. KKI</th>
+				<th data-options="field: 'KepalaKeluarga', width: 200">Nama KK</th>
+				<th data-options="field: 'NamaIstri', width: 200">Nama Istri</th>
+				<th data-options="field: 'Kecamatan', width: 150">Kecamatan</th>
+				<th data-options="field: 'Kelurahan', width: 150">Kelurahan</th>
+				<th data-options="field: 'RW', width: 50">RW</th>
+				<th data-options="field: 'RT', width: 50">RT</th>
+			</tr>
+		</thead>
+	</table>
+</div>
+
+<div id="win-form" class="easyui-window" title="Form Input" data-options="onClose: function() {$('#Bulan').attr('disabled', false);},minimizable: false, maximizable: false, closed: true, modal: true" style="position: relative; width: 750px; height: 525px; padding: 10px">
+	<div id="p" class="easyui-panel" title="Keluarga KB" data-options="collapsed: false, collapsible: true" style="width:700px;height:180px;padding:10px;">  
+		<table width="100%">		
+			<tr>
+				<td width="30%" align="right">No. KKI</td>
+				<td width="1%">:</td>
+				<td>
+					<input type="hidden" name="KeluargaId" id="KeluargaId" />
+					<input type="text" name="NoKKI" id="NoKKI" style="width: 150px;" disabled />
+					<!--&nbsp;<a id="link-cari" href="javascript:void(0);" onclick="openSearchWindow();">Cari</a>-->
+				</td>
+			</tr>
+			<tr>
+				<td width="30%" align="right">Tahun</td>
+				<td width="1%">:</td>
+				<td>
+					<input type="hidden" name="Tahun" id="Tahun" value="<?php echo $_SESSION[ 'tahun' ]; ?>" />
+					<?php echo $_SESSION[ 'tahun' ]; ?>					
+				</td>			
+			</tr>
+			<tr>
+				<td width="30%" align="right">Bulan</td>
+				<td width="1%">:</td>
+				<td>
+					<input type="hidden" name="NamaBulan" id="NamaBulan" />
+					<select onchange="getNamaBulanById(this.value);" id="Bulan" name="Bulan">
+						<option value="0">--Pilih--</option>
+						<?php
+							if ( count( $bulanList ) > 0 ) {
+								for ( $i=0; $i < count( $bulanList ); $i++ ) {
+									echo '<option value="' . $bulanList[ $i ][ 'BulanId' ] . '">' . $bulanList[ $i ][ 'Bulan' ] . '</option>';
+								}
+							}
+						?>
+					</select>
+				</td>			
+			</tr>		
+			<tr>
+				<td width="30%" align="right">Nama KK</td>
+				<td width="1%">:</td>
+				<td><input type="text" name="NamaKk" id="NamaKk" style="width: 200px;" disabled /></td>			
+			</tr>
+			<tr>
+				<td width="30%" align="right">Nama Istri</td>
+				<td width="1%">:</td>
+				<td><input type="text" name="NamaIstri" id="NamaIstri" style="width: 200px;" disabled /></td>			
+			</tr>
+		</table>
+	</div>
+
+	<div id="p" class="easyui-panel" title="Kepesertaan KB" data-options="collapsed: true, collapsible: true" style="width:700px;height:160px;padding:10px;">  
+		<table width="100%">
+			<tr>
+				<td colspan="3">
+					<input type="checkbox" name="IkutKb" id="IkutKb" onclick="disableInputKepesertaanKb();" /> Ikut KB</td>				
+			</tr>
+			<tr>
+				<td width="30%" align="right">Jenis Kontrasepsi yang digunakan</td>
+				<td width="1%">:</td>
+				<td>
+					<input type="hidden" type="NamaKontrasepsi" id="NamaKontrasepsi" />
+					<!--<input type="radio" name="JenisKontrasepsi" id="JenisKontrasepsi" onclick="$('#NamaKontrasepsi').val('');" value="0" checked />Kosong-->
+					<?php						
+						if ( count( $jenisKontrasepsiList ) > 0 ) {
+							for ( $i=0; $i < count( $jenisKontrasepsiList ); $i++ ) {
+								echo '<input type="radio" onclick="getNamaKontrasepsiById(this.value);" id="JenisKontrasepsi" name="JenisKontrasepsi" value="' . $jenisKontrasepsiList[ $i ][ 'JenisKontrasepId' ] . '" />' . $jenisKontrasepsiList[ $i ][ 'Jenis' ];
+							}
+						}
+					?>
+				</td>			
+			</tr>
+			<tr>
+				<td width="30%" align="right">Tgl. menggunakan KB</td>
+				<td width="1%">:</td>
+				<td><input type="text" id="TglKB" name="TglKB" class="easyui-datebox" data-options="formatter: formatter, parser: parser" /></td>			
+			</tr>
+			<tr>
+				<td width="30%" align="right">Tempat Pelayanan</td>
+				<td width="1%">:</td>
+				<td>
+					<input type="hidden" type="NamaTempatPelayanan" id="NamaTempatPelayanan" />
+					<!--<input type="radio" name="TempatPelayanan" id="TempatPelayanan" onclick="$('#NamaTempatPelayanan').val('');" value="0" checked />Kosong-->
+					<?php
+						if ( count( $tempatPelayananKbList ) > 0 ) {
+							for ( $i=0; $i < count( $tempatPelayananKbList ); $i++ ) {
+								echo '<input type="radio" onclick="getNamaTempatPelayananById(this.value);" id="TempatPelayanan" name="TempatPelayanan" value="' . $tempatPelayananKbList[ $i ][ 'TempatPelayananKBId' ] . '" />' . $tempatPelayananKbList[ $i ][ 'Nama' ];
+							}
+						}
+					?>
+				</td>			
+			</tr>
+			<tr>
+				<td width="30%" align="right">Alasan tidak ikut KB</td>
+				<td width="1%">:</td>
+				<td>
+					<select id="AlasanTidakKbId" name="AlasanTidakKbId">
+						<option value="0">--Pilih--</option>
+						<?php
+							if ( count( $alasanTidakKbList ) > 0 ) {
+								for ( $i=0; $i < count( $alasanTidakKbList ); $i++ ) {
+									echo '<option value="' . $alasanTidakKbList[ $i ][ 'ID' ] . '">' . $alasanTidakKbList[ $i ][ 'Alasan' ] . '</option>';
+								}
+							}
+						?>
+					</select>
+				</td>			
+			</tr>
+		</table>
+	</div>
+
+	<div id="p" class="easyui-panel" data-options="collapsed: true, collapsible: true" title="Indikator KS" style="width:700px;height:70px;padding:10px;">  
+		<table width="100%">
+			<tr>
+				<td width="30%" align="right">Indikator KS</td>
+				<td width="1%">:</td>
+				<td>
+					<select id="TingkatKesejahteraanId" name="TingkatKesejahteraanId">
+						<option value="0">--Pilih--</option>
+						<?php							
+							if ( count( $tingkatKesejahteraanList ) > 0 ) {
+								for ( $i=0; $i < count( $tingkatKesejahteraanList ); $i++ ) {
+									echo '<option value="' . $tingkatKesejahteraanList[ $i ][ 'ID' ] . '">' . $tingkatKesejahteraanList[ $i ][ 'Tingkat' ] . '</option>';
+								}
+							}							
+						?>						
+					</select>
+				</td>
+			</tr>			
+		</table>
+	</div><br />
+	<center>
+		<button id="simpan">Simpan</button>
+		<button id="tutup">Tutup</button>
+	</center>
+	<br />
+
+	<!-- tabel data keluarga-kb -->
+	<table class="easyui-datagrid" title="Tabel Histori Penggunaan Alat Kontrasepsi" id="tbl-keluarga-kb" data-options="singleSelect: true, collapsible: true, rownumbers: true, toolbar: toolbar2, pagination: true" style="width: 700px; height: 200px; padding: 10px;">
+		<thead>
+			<tr>
+				<th field="Bulan" width="80">Bulan</th>
+				<th field="Tahun" width="80">Tahun</th>
+				<!--<th field="KepalaKeluarga" width="200">Nama KK</th>-->
+				<!--<th field="NamaIstri" width="200">Nama Istri</th>-->
+				<th field="TglKB" width="80">Tgl. KB</th>
+				<th field="JenisKontrasepsi" width="150">Jenis Kontrasepsi</th>
+				<th field="TempatPelayanan" width="150">Tempat Pelayanan KB</th>
+				<th hidden="true" field="KeluargaId">ID</th>
+				<th hidden="true" field="BulanId">Bulan ID</th>
+				<th hidden="true" field="NoKKI">No. KKI</th>				
+				<th hidden="true" field="JenisKontrasepsiId"></th>
+				<th hidden="true" field="TempatPelayananKBId"></th>
+				<th hidden="true" field="TingkatKesejahteraanId"></th>
+				<th hidden="true" field="AlasanTidakKBId"></th>
 			</tr>
 		</thead>
 	</table>
 </div>
 
 <script type="text/javascript">
-	$(function() {
+	var toolbar = [{  
+    text:'Tambah',  
+    iconCls:'icon-add',  
+    handler:function(){crud('insert');}  
+  }]; 
+
+  var toolbar2 = [{
+    text:'Ubah',  
+    iconCls:'icon-edit',  
+    handler:function(){crud('update');}  
+  },{  
+    text:'Hapus',  
+    iconCls:'icon-remove',  
+    handler:function(){del();}  
+  }/*,'-',{  
+    text:'Print',  
+    iconCls:'icon-print',  
+    handler:function(){alert('save')}  
+  }*/];
+
+	$(function() {		
 		// default loading
-		if ($("#Kecamatan1").val() != "" && $("#Kelurahan1").val() != "") {
+		disableInputKepesertaanKb();		
+
+		/*if ($("#Kecamatan1").val() != "" && $("#Kelurahan1").val() != "") {
 			$("#tbl-keluarga-kb").datagrid({
 				url: "model/keluarga-kb/get-all-keluarga-kb-json.php",
 				queryParams: { Kecamatan: $("#Kecamatan1").val(), Kelurahan: $("#Kelurahan1").val() }
 			});
-		}
+		}*/
 
 		if ($("#Kecamatan2").val() != "" && $("#Kelurahan2").val() != "") {
 			$("#tbl-keluarga").datagrid({
@@ -448,8 +368,67 @@
 				NamaKK: $("#NamaKK2").val()
 			});		
 		});
+
+		$("#tutup").unbind("click").bind("click", function() {
+			$("#win-form").window("close");
+		});
 	});
 	
+	function clearInputField() {
+		$("#Bulan").val("0");			
+		$("#NamaIstri").val("");
+		//$("#NamaTempatPelayanan").val("0");
+		//$("#JenisKontrasepsi").val("0");
+		$("#AlasanTidakKbId").val("0");
+		$("#TingkatKesejahteraanId").val("0");
+		$("#IkutKb").removeAttr("checked");
+		$("#TglKB").datebox("setValue", "");
+		//$("[name=JenisKontrasepsi]:radio").filter("[value=0]").attr("checked", true);
+		//$("[name=TempatPelayanan]:radio").filter("[value=0]").attr("checked", true);
+
+	}
+
+	function formatter(date) {
+		var y = date.getFullYear();  
+    var m = date.getMonth()+1;  
+    var d = date.getDate(); 
+
+    return (d<10?('0'+d):d)+'-'+(m<10?('0'+m):m)+'-'+y;  
+	}
+
+	function parser(s) {
+		if (!s) return new Date();  
+    var ss = s.split('-');  
+    var d = parseInt(ss[0],10);  
+    var m = parseInt(ss[1],10);  
+    var y = parseInt(ss[2],10);  
+    if (!isNaN(y) && !isNaN(m) && !isNaN(d)){  
+      return new Date(y,m-1,d);  
+    } else {
+      return new Date();  
+    }    
+	}
+
+	function disableInputKepesertaanKb() {
+		if ($("#IkutKb").attr("checked"))	{
+			$("input[id=JenisKontrasepsi]:radio").attr("disabled", false);
+			$("#TglKB").datebox({
+				require: true,
+				disabled: false,
+			});
+			$("input[id=TempatPelayanan]:radio").attr("disabled", false);						
+			$("#AlasanTidakKbId").attr("disabled", true);
+		} else {
+			$("input[id=JenisKontrasepsi]:radio").attr("disabled", true);
+			$("#TglKB").datebox({
+				require: true,
+				disabled: true,
+			});
+			$("input[id=TempatPelayanan]:radio").attr("disabled", true);
+			$("#AlasanTidakKbId").attr("disabled", false);			
+		}
+	}
+
 	function openSearchWindow() {
 		$('#win-search').window('open');
 		$("#tbl-keluarga").datagrid({
@@ -504,7 +483,7 @@
 			return false;
 		}
 
-		$.messager.confirm("Konfirmasi", "Hapus data MDK dengan No. KKI: " + row.NoKKI + "?", function(r) {
+		$.messager.confirm("Konfirmasi", "Hapus data penggunaan alat kontrasepsi KK: " + row.KepalaKeluarga + " untuk bulan " + row.Bulan + ", tahun " + row.Tahun + "?", function(r) {
 			if (r) {
 				$.ajax({
 					url: "model/keluarga-kb/delete-keluarga-kb.php",
@@ -512,9 +491,7 @@
 					success: function(data) {
 						$("#tbl-keluarga-kb").datagrid("reload");
 					},
-					error: function() {
-
-					}
+					error: function() {}
 				});
 			}		
 		});
@@ -527,30 +504,47 @@
 			if (row == null) {
 				$.messager.alert("Peringatan", "Anda belum memilih data yang akan dirubah!", "warning");			
 				return false;
-			}
+			}			
 
-			$("#win-form").window({
+			/*$("#win-form").window({
 				title: "Form Edit"
-			}).window("open");
+			}).window("open");*/
 			
-			$("#link-cari").hide();
+			//$("#link-cari").hide();
+			if (row.JenisKontrasepsi && row.TempatPelayanan && row.TglKB) {
+				$("#IkutKb").attr("checked", "checked");
+			}
+			
+			$("#Bulan").attr("disabled", true);
+			disableInputKepesertaanKb();
+
 			$("#KeluargaId").val(row.KeluargaId);
 			$("#NoKKI").val(row.NoKKI);
-			$("#Tahun").val(row.Tahun);
+			//$("#Tahun").val(row.Tahun);
 			$("#Bulan").val(row.BulanId);
 			$("#NamaKk").val(row.KepalaKeluarga);
 			$("#NamaIstri").val(row.NamaIstri);
+			$("#TglKB").datebox("setValue", row.TglKB);			
+			$("#TingkatKesejahteraanId").val(row.TingkatKesejahteraanId);
+			//$("#AlasanTidakKbId").val(row.AlasanTidakKBId);
 			$("[name=JenisKontrasepsi]:radio").filter("[value='" + row.JenisKontrasepsiId + "']").attr("checked", true);
-			$("[name=TempatPelayanan]:radio").filter("[value='" + row.TempatPelayananKBId + "']").attr("checked", true);			
+			$("[name=TempatPelayanan]:radio").filter("[value='" + row.TempatPelayananKBId + "']").attr("checked", true);						
 
 			$("#simpan").unbind("click").bind("click", function() {
+				if (flag == "") {
+					$.messager.alert("Peringatan", "Anda bellum memilih data yang akan dirubah!", "warning");
+					return false;
+				}
 				// validasi, cek input
 				var parm = {
 					BulanId: $("#Bulan").val(),
 					Tahun: $("#Tahun").val(),
 					KeluargaId: $("#KeluargaId").val(),
-					JenisKontrasepsiId: $("[name=JenisKontrasepsi]:radio:checked").val(),
-					TempatPelayananKBId: $("[name=TempatPelayanan]:radio:checked").val()
+					AlasanTidakKBId: ($("#IkutKb").attr("checked") ? "null" : $("#AlasanTidakKbId").val()),
+					TglKB: ($("#IkutKb").attr("checked") ? $("#TglKB").datebox("getValue") : "null"),
+					TingkatKesejahteraanId: $("#TingkatKesejahteraanId").val(),
+					JenisKontrasepsiId: ($("#IkutKb").attr("checked") ? $("[name=JenisKontrasepsi]:radio:checked").val() : "null"),
+					TempatPelayananKBId: ($("#IkutKb").attr("checked") ? $("[name=TempatPelayanan]:radio:checked").val() : "null")
 				};
 
 				$.ajax({
@@ -559,11 +553,19 @@
 					data: parm,
 					success: function(data) {
 						if (data == "sukses") {
-							$.messager.alert("Informasi", "Data berhasil dirubah!", "info");			
+							$.messager.alert("Informasi", "Data berhasil dirubah!", "info");
+							clearInputField();
+							disableInputKepesertaanKb();
+							$("#Bulan").attr("disabled", false);
 							$("#tbl-keluarga-kb").datagrid("reload");
+							flag = "";
+						} else if (data == "ada") {
+							$.messager.alert("Peringatan", "Data sudah ada di dalam database!", "warning");
+						} else {
+							$.messager.alert("Error", "Data gagal dirubah!", "error");
 						}
 						
-						$("#win-form").window("close");
+						//$("#win-form").window("close");
 					},
 					error: function(xhr, status, error) {
 						console.log(xhr.statusText);
@@ -573,30 +575,64 @@
 				})
 			});
 		} else {
-			$("#link-cari").show();
-			$("#NoKKI").val("");
-			$("#Tahun").val("0");
-			$("#Bulan").val("0");
-			$("#NamaKk").val("");
-			$("#NamaIstri").val("");
-			$("#NamaTempatPelayanan").val("0");
-			$("#JenisKontrasepsi").val("0");
-			$("[name=JenisKontrasepsi]:radio").filter("[value=0]").attr("checked", true);
-			$("[name=TempatPelayanan]:radio").filter("[value=0]").attr("checked", true);
+			//$("#link-cari").show();
+			//$("#NoKKI").val("");
+			//$("#Tahun").val("0");
+			//$("#NamaKk").val("");
+			clearInputField();
 
+			var row = $("#tbl-keluarga").datagrid("getSelected");
+
+			if (row == null) {
+				$.messager.alert("Peringatan", "Anda belum memilih data yang akan ditambah!", "warning");			
+				return false;
+			}
+
+			disableInputKepesertaanKb();
+			
 			$("#win-form").window({
 				title: "Form Input"
 			}).window("open");
 
+			$("#KeluargaId").val(row.KeluargaId);
+			$("#NoKKI").val(row.NoKKI);
+			//$("#Tahun").val(row.Tahun);
+			$("#NamaKk").val(row.KepalaKeluarga);
+			$("#NamaIstri").val(row.NamaIstri);
+
+			$("#tbl-keluarga-kb").datagrid({
+				url: "model/keluarga-kb/get-all-keluarga-kb-json.php",
+				queryParams: { NoKKI: $("#NoKKI").val(), Tahun: <?php echo $_SESSION[ 'tahun' ]; ?> }
+			});
+			
 			$("#simpan").unbind("click").bind("click", function() {
+				if (flag == "") {
+					$.messager.alert("Peringatan", "Anda belum memasukkan informasi!", "warning");
+					return false;
+				}
+
 				// validasi, cek input
-				var parm = {
-					BulanId: $("#Bulan").val(),
-					Tahun: $("#Tahun").val(),
-					KeluargaId: $("#KeluargaId").val(),
-					JenisKontrasepsiId: $("[name=JenisKontrasepsi]:radio:checked").val(),
-					TempatPelayananKBId: $("[name=TempatPelayanan]:radio:checked").val()
-				};
+				if ($("#IkutKb").attr("checked")) {
+					var parm = {
+						IkutKb: "true",
+						BulanId: $("#Bulan").val(),
+						Tahun: $("#Tahun").val(),
+						KeluargaId: $("#KeluargaId").val(),
+						JenisKontrasepsiId: $("[name=JenisKontrasepsi]:radio:checked").val(),
+						TempatPelayananKBId: $("[name=TempatPelayanan]:radio:checked").val(),
+						TglKB: $("#TglKB").datebox("getValue"),
+						TingkatKesejahteraanId: $("#TingkatKesejahteraanId").val()
+					};
+				} else {					
+					var parm = {
+						IkutKb: "false",
+						BulanId: $("#Bulan").val(),
+						Tahun: $("#Tahun").val(),
+						KeluargaId: $("#KeluargaId").val(),
+						AlasanTidakKBId: $("#AlasanTidakKbId").val(),
+						TingkatKesejahteraanId: $("#TingkatKesejahteraanId").val()
+					};
+				}
 
 				$.ajax({
 					type: "post",
@@ -605,10 +641,17 @@
 					success: function(data) {
 						if (data == "sukses") {
 							$.messager.alert("Informasi", "Data berhasil disimpan!", "info");
+							clearInputField();
+							disableInputKepesertaanKb();
+							flag = "";
 							$("#tbl-keluarga-kb").datagrid("reload");
+						} else if (data == "ada") {
+							$.messager.alert("Peringatan", "Data sudah ada di dalam database!", "warning");
+						} else {
+							$.messager.alert("Error", "Data gagal disimpan!", "error");
 						}
 						
-						$("#win-form").window("close");
+						//$("#win-form").window("close");
 					},
 					error: function() {
 						alert("AJAX Error!");
@@ -696,7 +739,7 @@
 
 	function getRwByKelurahan2() {
 		$.ajax({
-			url: "model/kelurahan/get-rw-by-kelurahan-json.php",
+			url: "model/rw/get-rw-by-kelurahan-json.php",
 			data: { id: $("#Kelurahan2").val() },
 			success: function(data) {
 				$("#Rw2").empty();

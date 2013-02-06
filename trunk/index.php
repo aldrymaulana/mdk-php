@@ -2,7 +2,9 @@
 <html>  
   <head>  
     <meta charset="UTF-8">  
-    <title>MDK Tool</title>  
+    <title>Dinas BPMPPKB Kota Cimahi</title>  
+    <link rel="icon" type="image/png" href="img/cimahi-kecil.png">      
+    <link rel="shortcut icon" type="image/ico" href="favicon.ico">
     <link rel="stylesheet" type="text/css" href="js/jquery-easyui-1.3.2/themes/default/easyui.css">  
     <link rel="stylesheet" type="text/css" href="js/jquery-easyui-1.3.2/themes/icon.css">  
     <link rel="stylesheet" type="text/css" href="js/jquery-easyui-1.3.2/demo/demo.css">  
@@ -13,7 +15,7 @@
 
   <body>  
     <center>
-      <h2>Aplikasi MDK</h2>
+      <h2>Aplikasi Pengelolaan Data Peserta KB</h2>
     </center>
     <center>
       <div style="margin:10px 0;"></div>  
@@ -30,7 +32,29 @@
                 <td align="right">Password</td>  
                 <td>:</td>
                 <td><input class="easyui-validatebox" type="password" name="password" id="password" data-options="required:true"></input></td>  
-              </tr>                      
+              </tr>           
+              <tr>  
+                <td align="right">Tahun</td>  
+                <td>:</td>
+                <td>
+                  <select name="tahun" id="tahun">
+                    <?php
+                      $tahunAwal = 2010;
+                      $tahunAkhir = date( 'Y' );
+                      for ( $i=$tahunAwal; $i <= $tahunAkhir; $i++ ) {
+                        if ( $tahunAkhir == $i ) {
+                          echo '<option value=' . $i . ' selected>' . $i . '</option>';
+                        } else {
+                          echo '<option value=' . $i . '>' . $i . '</option>';
+                        }
+                      }
+                    ?>
+                  </select>
+                  <span id="loading">
+                    <img src="img/ajax-loader.gif" />
+                  </span>
+                </td>  
+              </tr>                 
             </table>  
           </form>  
         </div>  
@@ -38,29 +62,43 @@
           <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">Masuk</a>  
           <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">Ulang</a>  
         </div>  
-      </div>  
+      </div>      
     </center>
 
-    <script>  
+    <script>      
+      $(document).ready(function() {        
+        /*$("#loader")
+          .hide()
+          .ajaxStart(function() {
+            $(this).show()
+          })
+          .ajaxStop(function() {
+            $(this).hide()
+          });*/
+        $("#loading").hide();
+      });
+
       function submitForm() {
         var parm = {
           username: $("#username").val(),
-          password: $("#password").val()
+          password: $("#password").val(),
+          tahun: $("#tahun").val()
         };
 
         $.ajax({
           url: "model/login/check-login.php",
           data: parm,
           success: function(data) {
-            if (data == 'sukses') {
-              window.location.replace("http://10.3.23.90/mdk-php/main.php")
+            if (data == 'sukses') {              
+              $("#loading").show();
+              setTimeout(function() {
+                window.location.replace("http://10.3.23.90/mdk-php/main.php")
+              }, 1000);
             } else {
               $.messager.alert("Error", "Login gagal!", "error");
             }
           },
-          error: function() {
-
-          }
+          error: function() {}
         });
       }  
 

@@ -5,7 +5,7 @@
   $table = 'M_JenisKontrasepsi';
   $conn->openMssqlConnection();
   
-  $sql = 'SELECT Jenis FROM ' . $table . ' WHERE JenisKontrasepId=' . $_REQUEST[ 'KontrasepId' ];
+  $sql = 'SELECT Jenis FROM ' . $table . ' WHERE JenisKontrasepsiId=' . $_REQUEST[ 'KontrasepsiId' ];
   $result = mssql_query( $sql );  
   $data = array();
 

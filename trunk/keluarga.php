@@ -25,14 +25,14 @@
 	$bulanList = $bulan->getAllRecord();	
 ?>
 
-<div id="panel-keluarga" class="easyui-panel" title=" " style="padding: 10px">
+<div id="panel-keluarga" class="easyui-panel" title=" " style="padding: 5px">
 	<div id="panel-search" class="easyui-panel" title="Pencarian" data-options="collapsible: true">		
 		<table width="100%">				
 			<tr>
 				<td align="right">Kecamatan</td>
 				<td>:</td>
 				<td>
-					<select id="Kecamatan" name="Kecamatan" onchange="<?php echo ( $_SESSION[ 'group_id' ] != 1 ) ? 'getKelurahanByKecamatanId();' : ''; ?>">
+					<select id="Kecamatan" name="Kecamatan" onchange="getKelurahanByKecamatanId();">
 						<?php
 							if ( $_SESSION[ 'group_id' ] != 1 ) {
 								if ( count( $kecamatanList ) > 0 ) {
@@ -56,7 +56,7 @@
 				<td align="right">Kelurahan</td>
 				<td>:</td>
 				<td>
-					<select onchange="<?php echo ( $_SESSION[ 'group_id' ] != 1 ) ? 'getRwByKelurahan();' : ''; ?>" id="Kelurahan" name="Kelurahan">
+					<select onchange="getRwByKelurahan();" id="Kelurahan" name="Kelurahan">
 						<?php
 							if ( $_SESSION[ 'group_id' ] != 1 ) {
 								if ( count( $kelurahanList ) > 0 ) {
@@ -107,13 +107,13 @@
 		</table>
 	</div>
 
-	<table class="easyui-datagrid" title="Tabel Keluarga" id="tbl-keluarga" data-options="singleSelect: true, collapsible: true, rownumbers: true, pagination: true" style="height: 360px; padding: 10px;" iconCls="" >
+	<table class="easyui-datagrid" title="Tabel Keluarga" id="tbl-keluarga" data-options="singleSelect: true, collapsible: true, rownumbers: true, pagination: true" style="height: 320px; padding: 10px;" iconCls="" >
 		<thead>
 			<tr>
 				<th data-options="field: 'KeluargaId', width: 80">ID</th>
 				<th data-options="field: 'NoKKI', width: 150">No. KKI</th>
-				<th data-options="field: 'KepalaKeluarga', width: 250">Nama KK</th>
-				<th data-options="field: 'NamaIstri', width: 250">Nama Istri</th>
+				<th data-options="field: 'KepalaKeluarga', width: 200">Nama KK</th>
+				<th data-options="field: 'NamaIstri', width: 200">Nama Istri</th>
 				<th data-options="field: 'Kecamatan', width: 150">Kecamatan</th>
 				<th data-options="field: 'Kelurahan', width: 150">Kelurahan</th>
 				<th data-options="field: 'RW', width: 50">RW</th>

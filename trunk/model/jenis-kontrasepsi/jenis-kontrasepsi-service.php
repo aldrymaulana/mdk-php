@@ -12,14 +12,14 @@
     }
     
     public function getAllRecord() {
-      $sql = 'SELECT * FROM ' . $this->table . ' ORDER BY JenisKontrasepId';  
+      $sql = 'SELECT * FROM ' . $this->table . ' ORDER BY JenisKontrasepsiId';  
       $result = mssql_query( $sql );
       $data = array();
 
       if ( mssql_num_rows( $result ) > 0 ) {
         while ( $val = mssql_fetch_assoc( $result ) ) {      
           $data[] = array(
-              'JenisKontrasepId' => $val[ 'JenisKontrasepId' ],
+              'JenisKontrasepId' => $val[ 'JenisKontrasepsiId' ],
               'Jenis' => $val[ 'Jenis' ]
           );
         }

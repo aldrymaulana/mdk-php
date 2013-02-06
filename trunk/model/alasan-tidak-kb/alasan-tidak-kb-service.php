@@ -1,7 +1,7 @@
 <?php
   require_once 'lib/conn.inc.php';
 
-  class RwService {
+  class AlasanTidakKbService {
 
     private $conn = null;
     private $table = 'M_AlasanTidakKB';
@@ -12,7 +12,7 @@
     }
     
     public function getAllRecord() {
-      $sql = 'SELECT * FROM ' . $this->table . ' ORDER BY RWId';  
+      $sql = 'SELECT * FROM ' . $this->table . ' ORDER BY ID';  
       $result = mssql_query( $sql );
       $data = array();
 

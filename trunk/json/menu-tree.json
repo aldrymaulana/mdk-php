@@ -14,4 +14,15 @@
 		"id":21,
 		"text":"Keluarga KB"		
 	}]
+},{
+	"id":2,
+	"text":"Laporan",
+	"state":"closed",
+	"children":[{
+		"id":21,
+		"text":"Rekap Kepesertaan KB"		
+	},{
+		"id":21,
+		"text":"Pembinaan PUS"		
+	}]
 }]
