@@ -35,7 +35,7 @@ class Conn {
   public function openMssqlConnection() {
     $host = 'BLEK-PC';
     $username = 'sa';
-    $password = '5l4mdunk';
+    $password = '********';
     
     $mssql = mssql_connect( $host, $username, $password );
     
